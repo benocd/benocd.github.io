@@ -1,1 +1,118 @@
-<h1>Hola Mundo</h1>
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.0/skel.min.js"></script>
+      <script src="js/util.js"></script>
+      <title>BeñoCampos</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="icon" type="image/png" href="images/favicon.png">
+   </head>
+   <body id="top" class="">
+      <!-- Header -->
+      <header id="header" style="background-position: 0% 0%, 50% 50%;">
+         <a href="#" class="image avatar"><img src="images/avatar.jpg" alt=""></a>
+         <h1><strong>Bernardo Campos Diocaretz</strong> <br>   Developer </h1>
+      </header>
+      <!-- Main -->
+      <div id="main">
+         <!-- One -->
+         <section id="one">
+            <header class="major">
+               <h2>Sitio en Construcción</h2>
+            </header>
+            <p>Sitio en Construcción</p>
+            
+         </section>
+         <!-- Two -->
+         <section id="two">
+            <div class="w3-container" id="team">
+            <h3 class="w3-center">¿A QUÉ ME DEDICO?</h3>
+            <p class="w3-center w3-large">Desarrollo soluciones tecnológicas en las siguientes áreas</p>
+            <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card-2">
+                    <img src="/images/iot.jpg" alt="IoT" style="width:100%">
+                    <div class="w3-container">
+                    <h3>IoT</h3>
+                    <p>Internet de las cosas (Internet of Things) se refiere a la conexión de objetos 
+                        cotidianos con internet, tales como sensores, circuitos con control, cámaras de 
+                        video, etc.</p>
+                    </div>
+                </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card-2">
+                    <img src="/images/web.jpg" alt="Web" style="width:100%">
+                    <div class="w3-container">
+                    <h3>Web</h3>
+                    <p>Poseo más de 10 años de experiencia desarrollando proyectos Web para diferentes 
+                        empresas y organizaciones. Me dedico tanto al área de diseño (Front-end) como a 
+                        la programación (Back-end).
+                    </p>
+                    </div>
+                </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card-2">
+                    <img src="/images/apps.jpg" alt="Apps" style="width:100%">
+                    <div class="w3-container">
+                    <h3>Apps</h3>
+                    <p>Desarrollo de aplicaciónes para dispositivos móviles con sistema operativo iOS, 
+                        Android y Windows Phone.</p>
+                    </div>
+                </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card-2">
+                    <img src="/images/soporte.jpg" alt="Soporte" style="width:100%">
+                    <div class="w3-container">
+                    <h3>Soporte</h3>
+                    <p>Soporte Técnico a pequeñas y medianas empresas en el área de Software, Hardware
+                        y Red Local.
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+         </section>
+         <!-- Three -->
+         <section id="three">
+
+         </section>
+      </div>
+      <!-- Footer -->
+      <footer id="footer">
+         <ul class="icons">
+            <li><a href="https://cl.linkedin.com/in/bernardo-campos-diocaretz-7662b378" target="blank" class="icon fa-linkedin-square"><span class="label">Linkedin</span></a></li>
+            <li><a href="https://www.flickr.com/beno_cd" target="blank" class="icon fa-flickr"><span class="label">Flickr</span></a></li>
+            <li><a href="https://www.twitter.com/beno_cd" target="blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="https://www.strava.com/athletes/10881744" target="blank" class="icon fa-bicycle"><span class="label">Strava</span></a></li>
+            <li><a href="mailto:yo@beno.cl" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+         </ul>
+         <ul class="copyright">
+            <li>&copy; Bernardo Campos Diocaretz</li>
+         </ul>
+      </footer>
+      <!-- Scripts -->
+      <!--[if lte IE 8]><![endif]-->
+      <script>(function($) {var settings = {parallax: true,parallaxFactor: 20};skel.breakpoints({xlarge: '(max-width: 1800px)',large: '(max-width: 1280px)',medium: '(max-width: 980px)',small: '(max-width: 736px)',xsmall: '(max-width: 480px)'});$(function() {var $window = $(window),$body = $('body'),$header = $('#header');$body.addClass('is-loading');$window.on('load', function() {$body.removeClass('is-loading');});if (skel.vars.mobile) {$body.addClass('is-touch');window.setTimeout(function() {$window.scrollTop($window.scrollTop() + 1);}, 0);}$('form').placeholder();skel.on('+medium -medium', function() {$.prioritize('.important\\28 medium\\29',skel.breakpoint('medium').active);});if (skel.vars.browser == 'ie'|| skel.vars.mobile)settings.parallax = false;if (settings.parallax) {skel.on('change', function() {if (skel.breakpoint('medium').active) {$window.off('scroll.strata_parallax');$header.css('background-position', 'top left, center center');} else  {$header.css('background-position', 'left 0px');$window.on('scroll.strata_parallax', function() {$header.css('background-position', 'left ' + (-1 * (parseInt($window.scrollTop()) / settings.parallaxFactor)) + 'px');});}});}$window.on('load', function() {$('#two').poptrox({caption: function($a) { return $a.next('h3').text(); },overlayColor: '#2c2c2c',overlayOpacity: 0.85,popupCloserText: '',popupLoaderText: '',selector: '.work-item a.image',usePopupCaption: true,usePopupDefaultStyling: false,usePopupEasyClose: false,usePopupNav: true,windowMargin: (skel.breakpoint('small').active ? 0 : 50)});});});})(jQuery);</script>
+      <div class="poptrox-overlay" style="position: fixed; left: 0px; top: 0px; z-index: 1000; width: 100%; height: 100%; text-align: center; cursor: pointer; display: none;">
+         <div style="display:inline-block;height:100%;vertical-align:middle;"></div>
+         <div style="position:absolute;left:0;top:0;width:100%;height:100%;background:#2c2c2c;opacity:0.85;filter:alpha(opacity=85);"></div>
+         <div class="poptrox-popup" style="display: none; vertical-align: middle; position: relative; z-index: 1; cursor: auto; min-width: 200px; min-height: 100px;">
+            <div class="loader" style="display: none;"></div>
+            <div class="pic" style="display: none;"></div>
+            <div class="caption" style="display: none;"></div>
+            <span class="closer" style="cursor: pointer; display: none;"></span>
+            <div class="nav-previous" style="display: none;"></div>
+            <div class="nav-next" style="display: none;"></div>
+         </div>
+      </div>
+   </body>
+</html>
