@@ -1902,7 +1902,7 @@ input[type="submit"].disabled,input[type="submit"]:disabled,input[type="reset"].
 	width:calc(100% - 35%);
 }
 #main>section {
-	border-top:solid 2px #b2b2b2;
+	border-top:solid 2px #dfdfdf;
 	margin:4em 0 0 0;
 	padding:4em 0 0 0;
 }
