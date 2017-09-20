@@ -32,7 +32,8 @@
                <h2>Acerca de mí</h2>
             </header>
             <p>Mi nombre es Bernardo, vivo en Concepción, Chile y me fascina la informática desde que tengo memoria. 
-                Soy Licenciado en Tecnologías de la Información de la Universidad de Newcastle (Australia) y 
+                Soy Licenciado en Tecnologías de la Información (University of Newcastle), Analista Programador 
+                Computacional (Duoc UC) y 
                 actualmente estudio Ingeniería en Informática en Duoc UC.</p>
             <p>Me interesa poder realizar proyectos de innovación tecnológica que puedan dar solución a problemas 
                 del mundo real de manera eficiente y sustentable.</p>
@@ -95,7 +96,12 @@
          </section>
          <!-- Three -->
          <section id="three">
-
+            <h2 class="w3-center">Blog</h2>
+            <div id="blog" class="row">
+            </div>
+            <ul class="actions">
+                <li><a href="/blog" class="button">Ver Blog</a></li>
+             </ul>
          </section>
       </div>
       <!-- Footer -->
@@ -126,5 +132,34 @@
             <div class="nav-next" style="display: none;"></div>
          </div>
       </div>
+      
+      <!-- blog rss-->
+      <script>
+        $(document).ready(function() {
+            //feed to parse
+            var feed = "http://blog.beno.cl/feeds/posts/default?alt=rss";
+            
+            $.ajax(feed, {
+                accepts:{
+                    xml:"application/rss+xml"
+                },
+                dataType:"xml",
+                success:function(data) {
+
+                    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+                        var el = $(this);
+                        console.log("------------------------");
+                        console.log("title      : " + el.find("title").text());
+                        console.log("link       : " + el.find("link").text());
+                        console.log("description: " + el.find("description").text());
+                        $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" );
+                        $( "#blog" ).append( "<a href="+ el.find("link").text() +" class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail url").text()+"</a>" );
+                        $( "#blog" ).append( "<h3>"+el.find("title").text()+"</h3>" );
+                        $( "#blog" ).append( "</article>" );
+                    });
+                }   
+            });      
+        });
+      </script>
    </body>
 </html>
