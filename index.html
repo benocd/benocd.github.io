@@ -138,10 +138,10 @@
         $.get('https://cors.io/?http://blog.beno.cl/feeds/posts/default?alt=rss', function (data) {
             $(data).find("item").each(function () { // or "item" or whatever suits your feed
                 var el = $(this);
-                $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" );
-                $( "#blog" ).append( "<a href='"+el.find("link").text()+"' class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").text()+"</a>" );
-                $( "#blog" ).append( "<h3>"+el.find("title").text()+"</h3>" );
-                $( "#blog" ).append( "</article>" );
+                $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" +
+                 "<a href='"+el.find("link").text()+"' class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").text()+"</a>" +
+                 "<h3>"+el.find("title").text()+"</h3>" +
+                 "</article>" );
             });
         });
       </script>
