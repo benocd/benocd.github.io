@@ -144,7 +144,7 @@
                 console.log("author     : " + el.find("author").text());
                 console.log("description: " + el.find("description").text());
                 $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" );
-                $( "#blog" ).append( "<a href="+ el.find("link") +" class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").url()+"</a>" );
+                $( "#blog" ).append( "<a href="+ el.find("link") +" class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").text()+"</a>" );
                 $( "#blog" ).append( "<h3>"+el.find("title").text()+"</h3>" );
                 $( "#blog" ).append( "</article>" );
             });
