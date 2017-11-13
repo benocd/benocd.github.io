@@ -134,33 +134,6 @@
       </div>
       
       <!-- blog rss-->
-      <!--script>
-        $(document).ready(function() {
-            //feed to parse
-            var feed = "http://blog.beno.cl/feeds/posts/default?alt=rss";
-            
-            $.ajax(feed, {
-                accepts:{
-                    xml:"application/rss+xml"
-                },
-                dataType:"xml",
-                success:function(data) {
-
-                    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-                        var el = $(this);
-                        console.log("------------------------");
-                        console.log("title      : " + el.find("title").text());
-                        console.log("link       : " + el.find("link").text());
-                        console.log("description: " + el.find("description").text());
-                        $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" );
-                        $( "#blog" ).append( "<a href="+ el.find("link").text() +" class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail url").text()+"</a>" );
-                        $( "#blog" ).append( "<h3>"+el.find("title").text()+"</h3>" );
-                        $( "#blog" ).append( "</article>" );
-                    });
-                }   
-            });      
-        });
-      </script-->
       <script>
         $.get('https://cors.io/?http://blog.beno.cl/feeds/posts/default?alt=rss', function (data) {
             $(data).find("item").each(function () { // or "item" or whatever suits your feed
@@ -171,7 +144,7 @@
                 console.log("author     : " + el.find("author").text());
                 console.log("description: " + el.find("description").text());
                 $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" );
-                $( "#blog" ).append( "<a href="+ el.find("link").text() +" class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail url").text()+"</a>" );
+                $( "#blog" ).append( "<a href="+ el.find("link") +" class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").url()+"</a>" );
                 $( "#blog" ).append( "<h3>"+el.find("title").text()+"</h3>" );
                 $( "#blog" ).append( "</article>" );
             });
