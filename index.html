@@ -162,7 +162,7 @@
         });
       </script-->
       <script>
-        $.get('http://blog.beno.cl/feeds/posts/default?alt=rss', function (data) {
+        $.get('https://cors.io/?http://blog.beno.cl/feeds/posts/default?alt=rss', function (data) {
             $(data).find("entry").each(function () { // or "item" or whatever suits your feed
                 var el = $(this);
 
