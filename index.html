@@ -135,7 +135,7 @@
       
       <!-- blog rss-->
       <script>
-        $.get('https://cors.io/?http://blog.beno.cl/feeds/posts/default?alt=rss', function (data) {
+        $.get('https://blog.beno.cl/feeds/posts/default?alt=rss', function (data) {
             $(data).find("item").each(function () { // or "item" or whatever suits your feed
                 var el = $(this);
                 $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" +
