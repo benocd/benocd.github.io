@@ -139,7 +139,7 @@
             $(data).find("item").each(function () { // or "item" or whatever suits your feed
                 var el = $(this);
                 $( "#blog" ).append( "<article class='6u 12u$(xsmall) work-item'>" +
-                 "<a href='"+el.find("link").text()+"' class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").text()+"</a>" +
+                 "<a href='"+el.find("link").val()+"' class='image fit thumb' style='cursor: pointer; outline: 0px;'>"+el.find("media:thumbnail").text()+"</a>" +
                  "<h3>"+el.find("title").text()+"</h3>" +
                  "</article>" );
             });
