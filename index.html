@@ -134,14 +134,21 @@
       </div>
       
       <!-- blog rss-->
-<script>
-    (function() {
-      var blog = "http://blog.beno.cl/feeds/posts/default?alt=json";
-      $.getJSON(blog, function (data) {
-        console.log(data);
-        
-      });
-    })();
+    <script>
+    $.ajax({
+        url:'http://blog.beno.cl/feeds/posts/default?alt=json', 
+        method: 'GET',
+        dataType: 'json',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("PUBLICKKEY", "XXXX");
+        }
+        success: function(data){
+            console.log(data);
+            for (var i = 0; i < data.rows.length; i++) {
+                $('#test').append('<p>' + data.rows[i].realName + '</p>');
+            }
+        }
+    });
     </script>
    </body>
 </html>
