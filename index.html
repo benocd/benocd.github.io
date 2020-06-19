@@ -656,8 +656,8 @@
 				type: "POST",
 				url: "http://api.beno.cl/email.php",
 				data: data,
-				success: function (data) {
-					alert("Email sent successfuly");
+				success: function() {
+					//alert("Email sent successfuly");
 					$('#contact-form').slideUp("fast", function () {
 						$(this).before('<div class="success">Thank you. Your Email was sent successfully.</div>');
 						$("#loader").hide();
