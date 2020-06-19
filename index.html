@@ -557,24 +557,23 @@
 										<div class="row clearfix">
 											<div class="form-group col-md-6 col-sm-6 col-xs-12">
 												<div class="group-inner">
-													<input name="Name" id="form_name" value="" placeholder="Name" type="text" >
+													<input name="Name" id="form_name" value="" placeholder="Name" type="text">
 												</div>
 											</div>
 
 											<div class="form-group col-md-6 col-sm-6 col-xs-12">
 												<div class="group-inner">
-													<input name="email" id="form_email" value="" placeholder="Email" type="email" >
+													<input name="email" id="form_email" value="" placeholder="Email" type="email">
 												</div>
 											</div>
 
 											<div class="form-group col-md-12 col-sm-12 col-xs-12">
 												<div class="group-inner">
-													<textarea name="message" id="form_msg" placeholder="Message" ></textarea>
+													<textarea name="message" id="form_msg" placeholder="Message"></textarea>
 												</div>
 											</div>
 											<div class="form-group col-md-12 col-sm-12 col-xs-12">
-												<button class="submit-btn-style col-md-12 col-sm-12 col-xs-12"
-													id="send_form">SEND</button>
+												<button class="submit-btn-style col-md-12 col-sm-12 col-xs-12" id="send_form">SEND</button>
 											</div>
 										</div>
 									</form>
@@ -652,18 +651,24 @@
 				form_email: $("#form_email").val(),
 				form_msg: $("#form_msg").val()
 			};
-			$.ajax({
-				type: "POST",
-				url: "http://api.beno.cl/email.php",
-				data: data,
-				success: function() {
-					$('#contact-form').slideUp("fast", function () {
-						$(this).before('<div class="success">Thank you. Your Email was sent successfully.</div>');
-						$("#loader").hide();
-					})
-				}
-			});
-			alert("Email sent successfuly");
+
+			if (data.form_name === "" || data.form_email === "" || data.form_msg === "") {
+				alert("Please enter all fields");
+			} else {
+
+				$.ajax({
+					type: "POST",
+					url: "http://api.beno.cl/email.php",
+					data: data,
+					success: function () {
+						$('#contact-form').slideUp("fast", function () {
+							$(this).before('<div class="success">Thank you. Your Email was sent successfully.</div>');
+							$("#loader").hide();
+						})
+					}
+				});
+				alert("Email sent successfuly");
+			}
 		});
 	</script>
 	<!-- SCRIPT JS -->
