@@ -646,7 +646,7 @@
 	<!-- CONTACT FORM JS -->
 	<script>
 		$('#send_form').click(function () {
-			$("#loader").show();
+			//$("#loader").show();
 			var data = {
 				form_name: $("#form_name").val(),
 				form_email: $("#form_email").val(),
@@ -657,13 +657,13 @@
 				url: "http://api.beno.cl/email.php",
 				data: data,
 				success: function() {
-					//alert("Email sent successfuly");
 					$('#contact-form').slideUp("fast", function () {
 						$(this).before('<div class="success">Thank you. Your Email was sent successfully.</div>');
 						$("#loader").hide();
 					})
 				}
 			});
+			alert("Email sent successfuly");
 		});
 	</script>
 	<!-- SCRIPT JS -->
