@@ -1,0 +1,65 @@
+body {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  font-family: 'Bitstream Vera Sans Mono', monospace;
+  font-size: 80%;
+  line-height: 1.4;
+}
+
+.borderpic{
+  position: relative;
+}
+
+.featurette-image{
+  border: 0.5em solid rgba(232, 234, 237, 1);
+  width: 100%;
+  animation: 6.5s autoplay6 infinite linear;
+  position: absolute; opacity: 0.0;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  -webkit-box-shadow: 0 6px 11px 0 rgba(0,0,0,.25),0 7px 20px 3px rgba(0,0,0,.2)!important;
+  box-shadow: 0 6px 11px 0 rgba(0,0,0,.25),0 7px 20px 3px rgba(0,0,0,.2)!important;
+}
+
+@keyframes autoplay6 {
+  0% {opacity: 0.0}
+  4% {opacity: 1.0}
+  33.33% {opacity: 1.0}
+  37.33% {opacity: 0.0}
+  100% {opacity: 0.0}
+}
+
+#slide1 {animation-delay: 0.5s}
+#slide2 {animation-delay: 1s}
+#slide3 {animation-delay: 1.5s}
+#slide4 {animation-delay: 2s}
+#slide5 {animation-delay: 2.5s}
+#slide6 {animation-delay: 3s}
+#slide7 {animation-delay: 3.5s}
+#slide8 {animation-delay: 4s}
+#slide9 {animation-delay: 4.5s}
+#slide10 {animation-delay: 5s}
+
+.featurette-heading {
+  letter-spacing: -.05rem;
+}
+
+@media (min-width: 40em) {
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 5rem;
+    /*margin-top: 7rem;*/
+  }
+}
+
+.featurette-divider {
+  margin: 5rem 0;
+}
+
+.koala-grey,.hover-koala-grey:hover{color:rgba(232, 234, 237, 1)!important;background-color:rgb(60, 64, 67)!important}
