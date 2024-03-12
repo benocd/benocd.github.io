@@ -1,76 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Beño &#x1F4BB</title>
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<!-- Font Awesome CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-	<! -- Fonts -->
-	<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
-	<!-- Custom CSS -->
-	<style>
-		body {
-			background-color: #222;
-			font-family: 'Ubuntu', sans-serif;
-			color: #fff;
-		}
-		.container {
-			margin-top: 50px;
-		}
-		.about-me {
-			background-color: #333;
-			padding: 20px;
-			border-radius: 10px;
-		}
-		.profile-pic {
-			border-radius: 50%;
-			margin-bottom: 10px;
-		}
-		.social-icons {
-			margin-top: 50px;
-			text-align: center;
-		}
-		.social-icons i {
-			font-size: 30px;
-			margin: 0 10px;
-			color: #fff;
-			transition: all 0.3s ease-in-out;
-		}
-		.social-icons i:hover {
-			transform: scale(1.2);
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beño Campos</title>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.module.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
+
 <body>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<div class="about-me">
-					<div class="row">
-						<div class="col-md-4 text-center">
-								<img src="PXL_20230311_060515078.jpg" class="profile-pic img-fluid" >
-						</div>
-						<div class="col-md-8">
-							<p>Hello! My name is Bernardo, and I'm a software engineer based in Sydney, Australia. While my career began as a programmer, my curiosity and passion for innovation quickly led me to work in R&D, science and technology. Throughout my career, I've been fortunate to collaborate with experts from a wide range of disciplines, providing me with the opportunity to tackle unique challenges and gain valuable insights.
-							I'm driven by a deep sense of purpose to use my technical knowledge to make a positive impact on the world. Whether it's through developing tools or exploring new ways to use technology for the betterment of our planet.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="social-icons">
-			<a href="https://twitter.com/beno_cd"><i class="fab fa-twitter"></i></a>
-			<a href="https://linkedin.com/in/bernardo-campos-diocaretz-7662b378"><i class="fab fa-linkedin"></i></a>
-			<a href="https://github.com/benocd"><i class="fab fa-github"></i></a>
-		</div>
-	</div>
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<!-- Bootstrap JS -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="module">
+        import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.module.js';
+
+        let camera, scene, renderer;
+        let time = 0;
+        let mouseX = 0, mouseY = 0;
+
+        init();
+        animate();
+
+        function init() {
+            scene = new THREE.Scene();
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+
+            const fractalMesh = new THREE.Mesh(geometry, material);
+            scene.add(fractalMesh);
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            document.addEventListener('mousemove', onMouseMove, false);
+        }
+
+        function onMouseMove(event) {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = - (event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Basic rotation for demonstration purposes
+            scene.children[0].rotation.x = time + mouseY * 2;
+            scene.children[0].rotation.y = time + mouseX * 2;
+
+            // Oscillate the zoom level using a sine function
+            const zoomFactor = Math.sin(time);
+            camera.position.z = 1 + zoomFactor;
+
+            // Increment time for continuous rotation
+            time += 0.005;
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            const newWidth = window.innerWidth;
+            const newHeight = window.innerHeight;
+
+            camera.aspect = newWidth / newHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(newWidth, newHeight);
+        });
+    </script>
 </body>
+
 </html>
