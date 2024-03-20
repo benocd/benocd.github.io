@@ -1,81 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beño Campos</title>
-    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.module.js"></script>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
+<title>Bernardo Campos Diocaretz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.gif">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+body,h1 {font-family: "Ubuntu", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+</style>
 </head>
-
 <body>
-    <script type="module">
-        import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.module.js';
 
-        let camera, scene, renderer;
-        let time = 0;
-        let mouseX = 0, mouseY = 0;
+<div class="bgimg w3-display-container w3-text-white" id="bg">
+  <div class="w3-display-topleft w3-container w3-xlarge">
+    <p><button onclick="document.getElementById('about').style.display='block'" class="w3-button w3-black">about</button></p>
+    <p><a href="http://iot.beno.cl" target="_blank" class="w3-button w3-black">IoT</a></p>
+  </div>
+  <div class="w3-display-bottomright w3-container">
+    <p>
+        <a href="https://twitter.com/beno_cd" target="_blank" class="w3-button w3-black w3-xlarge"><i class="fa-brands fa-x-twitter"></i></a> 
+        <a href="https://github.com/benocd" target="_blank" class="w3-button w3-black w3-xlarge"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/bernardo-campos-diocaretz-7662b378/" target="_blank" class="w3-button w3-black w3-xlarge"><i class="fa-brands fa-linkedin"></i></a>
+    </p>
+  </div>
+</div>
 
-        init();
-        animate();
+<!-- Contact Modal -->
+<div id="about" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top">
+    <div class="w3-container w3-black">
+      <span onclick="document.getElementById('about').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1>about</h1>
+    </div>
+    <div class="w3-container">
+      <p><b>Bernardo Campos Diocaretz</b>, known as "Beño", is a <b>Software Engineer</b> based in <b>Dubbo, Australia</b>. He has cultivated a diverse background across various <b>STEM</b> disciplines.</p>
+      <p>Throughout his career, Beño has been an integral part of numerous <b>R&D</b> projects as an IT expert. Collaborating with professionals from fields like <b>Industrial Design, Agriculture, Geology, and Biology</b>, he has tackled unique challenges and gained valuable insights.</p>
+      <p>Beño's creativity extends beyond lines of code. As an <b>inventor</b>, he designs and builds custom electronic devices for scientific research.</p>
+      
+    </div>
+  </div>
+</div>
 
-        function init() {
-            scene = new THREE.Scene();
+<script type="module">
+    import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.module.js';
 
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
+    let camera, scene, renderer;
+    let time = 0;
+    let mouseX = 0, mouseY = 0;
 
-            const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
-            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+    init();
+    animate();
 
-            const fractalMesh = new THREE.Mesh(geometry, material);
-            scene.add(fractalMesh);
+    function init() {
+        scene = new THREE.Scene();
 
-            renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
 
-            document.addEventListener('mousemove', onMouseMove, false);
-        }
+        const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
 
-        function onMouseMove(event) {
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = - (event.clientY / window.innerHeight) * 2 + 1;
-        }
+        const fractalMesh = new THREE.Mesh(geometry, material);
+        scene.add(fractalMesh);
 
-        function animate() {
-            requestAnimationFrame(animate);
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        var bgDiv = document.getElementById('bg');
+        bgDiv.appendChild(renderer.domElement);
+        document.addEventListener('mousemove', onMouseMove, false);
+    }
 
-            // Basic rotation for demonstration purposes
-            scene.children[0].rotation.x = time + mouseY * 2;
-            scene.children[0].rotation.y = time + mouseX * 2;
+    function onMouseMove(event) {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = - (event.clientY / window.innerHeight) * 2 + 1;
+    }
 
-            // Oscillate the zoom level using a sine function
-            const zoomFactor = Math.sin(time);
-            camera.position.z = 1 + zoomFactor;
+    function animate() {
+        requestAnimationFrame(animate);
 
-            // Increment time for continuous rotation
-            time += 0.005;
+        // Basic rotation for demonstration purposes
+        scene.children[0].rotation.x = time + mouseY * 2;
+        scene.children[0].rotation.y = time + mouseX * 2;
 
-            renderer.render(scene, camera);
-        }
+        // Oscillate the zoom level using a sine function
+        const zoomFactor = Math.sin(time);
+        camera.position.z = 1 + zoomFactor;
 
-        window.addEventListener('resize', () => {
-            const newWidth = window.innerWidth;
-            const newHeight = window.innerHeight;
+        // Increment time for continuous rotation
+        time += 0.005;
 
-            camera.aspect = newWidth / newHeight;
-            camera.updateProjectionMatrix();
+        renderer.render(scene, camera);
+    }
 
-            renderer.setSize(newWidth, newHeight);
-        });
-    </script>
+    window.addEventListener('resize', () => {
+        const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(newWidth, newHeight);
+    });
+</script>
+
 </body>
-
 </html>
+
