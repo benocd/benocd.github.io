@@ -282,7 +282,7 @@ body::before {
   padding: 16px;
   display: flex;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.75rem; 
 }
 
 /* Circular avatar */
