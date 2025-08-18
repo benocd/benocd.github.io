@@ -13,132 +13,211 @@
 
 <body>
 
-  <div class="w3-container">
-    <header class="w3-header w3-padding-16 w3-flex w3-justify-content-between">
-      <a href="/" class="w3-large w3-flex">
-        <svg class="w3-margin-right" width="40" height="32">
-          <rect width="40" height="32" style="fill:#a3cc1f;"></rect>
-        </svg>
-        <span>Bernardo Campos Diocaretz</span>
-      </a>
-    </header>
+  <!-- Crossfade layers -->
+  <div id="background" aria-hidden="true"></div>
+  <div id="nextBackground" aria-hidden="true"></div>
+
+  <!-- Metadata -->
+  <div id="metadata" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Hamburger -->
+  <div id="topbar-left">
+    <button id="hamburger" aria-label="Open navigation" title="Open menu">
+      <span class="icon">☰</span>
+    </button>
+    <img id="brandLogo" src="images/sharpie.png" alt="Logo">
   </div>
 
-  <div class="center-container w3-section w3-container">
-    <div class="w3-card-4 w3-round" style="max-width: 600px; background-color: #31363d;">
-      <div class="w3-container main w3-twothird">
-        <h1 style="color:#a3cc1f;">Hi, I'm <b>Beño</b>!</h1>
-        <p style="text-align: justify;">I'm a creative thinker with a deep passion for
-          Science, Technology, Music, and the Arts.
-          I've always been curious about the world around me and I love bringing ideas from my imagination to
-          life. My work spans Software Development, Embedded Systems, Bioinformatics, Carbon
-          Capture, Robotics, Artificial Intelligence and Smart Cities.
-          I'm always keen to connect with like-minded people, share ideas, and collaborate on interesting
-          projects. Please feel free to reach out.
-        </p>
-
+  <!-- Sidebar -->
+  <aside id="sidebar" aria-hidden="true" aria-label="Navigation drawer">
+    <div id="sidebarHeader" class="w3-header">
+      <div id="sidebarTitle">
+        &nbsp;
       </div>
-      <div class="w3-third">
-        <img src="beno.jpg" alt="Beño" style="width:100%; border-radius: 0 5px 0 0;">
-        <div class="linkscol">
-          <a class="cr-button"
-            href="mailto:&#x62;&#x65;&#x6E;&#x6F;&#x5F;&#x63;&#x64;&#x40;&#x68;&#x6F;&#x74;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#x6F;&#x6D;"
-            target="_blank"><i class="fa-solid fa-envelope"></i> E-mail</a>
-          <a class="cr-button" href="https://www.linkedin.com/in/bernardo-campos-diocaretz-7662b378/" target="_blank"><i
-              class="fa-brands fa-linkedin"></i> LinkedIn</a>
-          <a class="cr-button" href="https://github.com/benocd" target="_blank"><i class="fa-brands fa-github"></i>
-            GitHub</a>
-          <a class="cr-button" href="https://orcid.org/0000-0001-8800-8864" target="_blank"><i
-              class="fa-brands fa-orcid"></i> ORCID</a>
-        </div>
-      </div>
+      <button id="sidebarClose" aria-label="Close navigation">✖</button>
     </div>
-  </div>
-
-  <div class="center-container w3-section w3-container">
-    <div class="w3-block" style="max-width: 600px;">
-      <h3 class="w3-left"> <svg class="w3-margin-right" width="40" height="32">
-          <rect width="40" height="32" style="fill:#a3cc1f;"></rect>
-        </svg>Projects</h3>
+    <div id="sidebarProfile" role="complementary" aria-label="Profile">
+      <img id="profileAvatar" src="images/beno.jpg" alt="Bernardo Campos Diocaretz" />
+      <p id="profileBio">
+        I'm a creative technologist based in Central NSW, Australia.
+        Feel free to find me via my social links below.
+      </p>
     </div>
-  </div>
-
-  <div class="center-container w3-section w3-container">
-    <div style="max-width: 600px;">
-      <div class="w3-row w3-card-4 w3-round" style="background-color: #31363d; margin-bottom: 20px;">
-        <div class="w3-quarter">
-          <img src="images/sensor_community.jpg" class="w3-round" style="width:100%">
-        </div>
-        <div class="w3-threequarter w3-container">
-          <h4>Sensor.Community</h4>
-          <p>
-            I'm actively contributing to <a href="https://sensor.community/" target="_blank"
-              style="color:#a3cc1f;">Sensor.Community</a>, a community-driven global sensor network that creates Open
-            Environmental Data.
-          </p>
-          <div class="w3-right" style="margin-bottom: 15px; margin-right: 5px; display: flex;">
-            <a class="cr-button"
-              href="https://api-rrd.madavi.de:3000/grafana/d/GUaL5aZMA/pm-sensors-by-map-id?from=now-24h&to=now&timezone=browser&var-chipID=91686&var-type=pms&var-query0=feinstaub"
-              target="_blank"><i class="fa-solid fa-link"></i> PM data</a> &nbsp;&nbsp;
-            <a class="cr-button"
-              href="https://api-rrd.madavi.de:3000/grafana/d/000000004/single-sensor-view-for-map?from=now-24h&to=now&timezone=browser&var-node=91687"
-              target="_blank"><i class="fa-solid fa-link"></i> DHT data</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="w3-row w3-card-4 w3-round" style="background-color: #31363d; margin-bottom: 20px;">
-        <div class="w3-quarter">
-          <img src="images/mcc.jpg" class="w3-round" style="width:100%">
-        </div>
-        <div class="w3-threequarter w3-container">
-          <h4>Modular Carbon Capture System</h4>
-          <p>
-            A scalable, high-efficiency modular bioreactor system for carbon capture and utilisation (CCU).
-          </p>
-          <div class="w3-right" style="margin-bottom: 15px; margin-right: 5px; display: flex;">
-            <a class="cr-button"
-              href="https://patentimages.storage.googleapis.com/77/c6/fb/027e2b6ba511c0/WO2024130302A1.pdf"
-              target="_blank"><i class="fa-solid fa-link"></i> Link</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="w3-row w3-card-4 w3-round" style="background-color: #31363d; margin-bottom: 20px;">
-        <div class="w3-quarter">
-          <img src="images/tvfo.jpg" class="w3-round" style="width:100%">
-        </div>
-        <div class="w3-threequarter w3-container">
-          <h4>Temporal Variations in Flux Output</h4>
-          <p>
-            A testing device to determine optimal variations in flux output for cultivation of algae in
-            photobioreactors.
-          </p>
-          <div class="w3-right" style="margin-bottom: 15px; margin-right: 5px; display: flex;">
-            <a class="cr-button"
-              href="https://patentimages.storage.googleapis.com/ba/fe/39/077d3a529cf27e/WO2024130303A1.pdf"
-              target="_blank"><i class="fa-solid fa-link"></i> Link</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="w3-row w3-card-4 w3-round" style="background-color: #31363d; margin-bottom: 20px;">
-        <div class="w3-quarter">
-          <img src="images/aya.jpg" class="w3-round" style="width:100%">
-        </div>
-        <div class="w3-threequarter w3-container">
-          <h4>AYA</h4>
-          <p>
-            A sustainable combination of fish farming and vegetable growing that optimises food production.
-          </p>
-          <div class="w3-right" style="margin-bottom: 15px; margin-right: 5px; display: flex;">
-            <a class="cr-button" href="https://land-der-ideen.de/en/competitions/beyond-bauhaus/award-winners/aya"
-              target="_blank"><i class="fa-solid fa-link"></i> Link</a>
-          </div>
-        </div>
-      </div>
+    <nav>
+      <a href="https://github.com/benocd" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+      <a href="https://orcid.org/0000-0001-8800-8864" target="_blank"><i class="fa-brands fa-orcid"></i> ORCID</a>
+      <a href="https://bsky.app/profile/beno.cl" target="_blank"><i class="fa-brands fa-bluesky"></i> Bluesky</a>
+      <a href="https://www.linkedin.com/in/bernardo-campos-diocaretz-7662b378/" target="_blank" class="w3-btn-outline"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      
+    </nav>
+    <div id="cc">
+      <p>
+        <a href="https://beno.cl/">beno.cl</a> © 2025 by <a href="https://beno.cl/">Bernardo Campos Diocaretz</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+      </p>
     </div>
-  </div>
+  </aside>
+
+  <script>
+    // ======= CONFIG =======
+    const JSON_URL = 'images.json'; // must be same-origin or CORS-enabled
+    const ZOOM_DURATION_MS = 9000;  // 4s slow zoom
+    const FADE_DURATION_MS = 1000;  // 1s crossfade
+    const CYCLE_MS = ZOOM_DURATION_MS + FADE_DURATION_MS; // 5000ms total
+    const ZOOM_SCALE = 1.01; // slight zoom
+    // ======================
+
+    const bg = document.getElementById('background');
+    const nextBg = document.getElementById('nextBackground');
+    const metadata = document.getElementById('metadata');
+
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarClose = document.getElementById('sidebarClose');
+
+    let images = [];
+    let currentIndex = -1;
+    let timer = null;
+
+    function toggleSidebar(forceOpen = null) {
+      const willOpen = forceOpen === null ? !sidebar.classList.contains('open') : forceOpen;
+      sidebar.classList.toggle('open', willOpen);
+      sidebar.setAttribute('aria-hidden', String(!willOpen));
+    }
+
+    hamburger.addEventListener('click', () => toggleSidebar());
+    sidebarClose.addEventListener('click', () => toggleSidebar(false));
+
+    // Close drawer with Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar.classList.contains('open')) toggleSidebar(false);
+    });
+
+    // Helper: preload an image
+    function preload(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(url);
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
+
+    // Helper: pick a different random index
+    function pickRandomIndex() {
+      if (!images.length) return -1;
+      if (images.length === 1) return 0;
+      let i;
+      do { i = Math.floor(Math.random() * images.length); } while (i === currentIndex);
+      return i;
+    }
+
+    // Compose a location string; supports original "location" or place/city/country
+    function formatLocation(item) {
+      if (item.location) return item.location;
+      const parts = [];
+      if (item.place) parts.push(item.place);
+      const cityCountry = [item.city, item.country].filter(Boolean).join(', ');
+      if (cityCountry) parts.push(cityCountry);
+      return parts.join(' • ') || 'Unknown Location';
+    }
+
+    function formatCityCountry(item) {
+      const cc = [item.city, item.country].filter(Boolean).join(', ');
+      if (cc) return cc;
+      // fallback to any existing location string if city/country not present
+      return item.location || 'Unknown Location';
+    }
+
+    function formatExifDate(d) {
+      if (!d || typeof d !== 'string') return 'Unknown Date';
+      // handles "YYYY:MM:DD HH:MM:SS" or "YYYY-MM-DD HH:MM:SS"
+      const m = d.match(/^(\d{4})[:\-](\d{2})[:\-](\d{2})[ T](\d{2}):(\d{2})/);
+      if (!m) return d;
+      const [, Y, M, D, h, m2] = m;
+      return `${Y}/${M}/${D} ${h}:${m2}`;
+    }
+
+    function showMeta(item) {
+      const cityCountry = formatCityCountry(item);
+      const dateStr = formatExifDate(item.date);
+      const camera = item.camera || 'Unknown Camera';
+
+      metadata.innerHTML = `
+        <div class="meta-line"><i class="fa-solid fa-location-dot"></i> ${cityCountry}</div>
+        <div class="meta-line"><i class="fa-regular fa-calendar-days"></i> ${dateStr}</div>
+        <div class="meta-line"><i class="fa-solid fa-camera"></i> ${camera}</div>
+      `;
+    }
+
+    // Reset transform immediately (no animation), then later animate zoom
+    function resetTransformInstant(el) {
+      el.style.transition = 'transform 0s';
+      el.style.transform = 'scale(1)';
+      // force reflow so the next transition takes effect
+      void el.offsetHeight; // eslint-disable-line no-unused-expressions
+    }
+
+    async function cycleOnce() {
+      // Choose next image and preload
+      const nextIndex = pickRandomIndex();
+      if (nextIndex === -1) return;
+      const item = images[nextIndex];
+      const url = "photos/"+item.url;
+
+      try {
+        await preload(url);
+      } catch (e) {
+        console.warn('Failed to preload image:', url, e);
+        return;
+      }
+
+      // Prepare the fade-in layer
+      nextBg.style.backgroundImage = `url("${url}")`;
+      nextBg.style.opacity = '1';
+
+      // Update metadata immediately so it appears with the fade-in
+      showMeta(item);
+
+      // After fade duration, swap layers:
+      //  - set base layer to the new image
+      //  - hide the top layer
+      setTimeout(() => {
+        bg.style.backgroundImage = nextBg.style.backgroundImage;
+        resetTransformInstant(bg); // ensure we start from scale(1) without animating the reset
+        nextBg.style.opacity = '0';
+
+        // Start slow zoom on the base layer
+        bg.style.transition = `transform ${ZOOM_DURATION_MS}ms ease`;
+        bg.style.transform = `scale(${ZOOM_SCALE})`;
+
+        // Update current index
+        currentIndex = nextIndex;
+      }, FADE_DURATION_MS);
+    }
+
+    async function startSlideshow() {
+      try {
+        const res = await fetch(JSON_URL, { cache: 'no-store' });
+        images = await res.json();
+
+        if (!Array.isArray(images) || images.length === 0) {
+          console.error('images.json is empty or not an array.');
+          return;
+        }
+
+        // Kick off first cycle immediately
+        await cycleOnce();
+
+        // Continue cycles
+        timer = setInterval(cycleOnce, CYCLE_MS);
+      } catch (err) {
+        console.error('Failed to load images.json', err);
+      }
+    }
+
+    // Start!
+    startSlideshow();
+  </script>
 
 </body>
 
