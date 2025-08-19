@@ -260,16 +260,6 @@
     "camera": "Apple iPhone SE"
   },
   {
-    "url": "PXL_20220825_035430152.jpg",
-    "date": "2022:08:25 06:54:30",
-    "lat": 25.264606,
-    "lng": 51.611972,
-    "place": "Lower Ground (LG) carpark route",
-    "city": "Doha",
-    "country": "Qatar",
-    "camera": "Google Pixel 5a"
-  },
-  {
     "url": "PXL_20220826_233225875.jpg",
     "date": "2022:08:27 01:32:25",
     "lat": 55.676511,
@@ -847,6 +837,16 @@
     "place": "Conservatorium Road",
     "city": "Sydney",
     "country": "Australia",
+    "camera": "Google Pixel 6a"
+  },
+  {
+    "url": "./PXL_20240929_122109129.jpg",
+    "date": "2024:09:29 14:21:09",
+    "lat": 41.902889,
+    "lng": 12.465831,
+    "place": "Municipio Roma I",
+    "city": "Rome",
+    "country": "Italy",
     "camera": "Google Pixel 6a"
   }
 ]
