@@ -1,243 +1,361 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="favicon.gif">
-  <title>Bernardo Campos Diocaretz</title>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="styles.css?v=1">
-</head>
-
-<body>
-
-  <!-- Crossfade layers -->
-  <div id="background" aria-hidden="true"></div>
-  <div id="nextBackground" aria-hidden="true"></div>
-
-  <!-- Metadata -->
-  <div id="metadata" aria-live="polite" aria-atomic="true"></div>
-
-  <!-- Hamburger -->
-  <div id="topbar-left">
-    <button id="hamburger" aria-label="Open navigation" title="Open menu">
-      <span class="icon">☰</span>
-    </button>
-    <img id="brandLogo" src="images/sharpie.png" alt="Logo">
-  </div>
-
-  <!-- Sidebar -->
-  <aside id="sidebar" aria-hidden="true" aria-label="Navigation drawer">
-    <div id="sidebarHeader" class="w3-header">
-      <div id="sidebarTitle">
-        &nbsp;
-      </div>
-      <button id="sidebarClose" aria-label="Close navigation">✖</button>
-    </div>
-    <div id="sidebarProfile" role="complementary" aria-label="Profile">
-      <img id="profileAvatar" src="images/beno.jpg" alt="Bernardo Campos Diocaretz" />
-      <p id="profileBio">
-        I'm an R&D Engineer based in Central NSW, Australia.
-        Feel free to find me via my social links below.
-      </p>
-    </div>
-    <nav>
-      <a href="https://github.com/benocd" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-      <a href="https://orcid.org/0000-0001-8800-8864" target="_blank"><i class="fa-brands fa-orcid"></i> ORCID</a>
-      <a href="https://bsky.app/profile/beno.cl" target="_blank"><i class="fa-brands fa-bluesky"></i> Bluesky</a>
-      <a href="https://www.linkedin.com/in/bernardo-campos-diocaretz-7662b378/" target="_blank" class="w3-btn-outline"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-      
-    </nav>
-    <div id="cc">
-      <p>
-        <a href="https://beno.cl/">beno.cl</a> © 2025 by <a href="https://beno.cl/">Bernardo Campos Diocaretz</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
-      </p>
-    </div>
-  </aside>
-
-  <script>
-  // ======= CONFIG =======
-  const JSON_URL = 'images.json'; // must be same-origin or CORS-enabled
-  const ZOOM_DURATION_MS = 9000;  // 9s slow zoom
-  const FADE_DURATION_MS = 1000;  // 1s crossfade
-  const CYCLE_MS = ZOOM_DURATION_MS + FADE_DURATION_MS; // 5000ms total
-  const ZOOM_SCALE = 1.01; // slight zoom
-  // ======================
-
-  const bg = document.getElementById('background');
-  const nextBg = document.getElementById('nextBackground');
-  const metadata = document.getElementById('metadata');
-
-  const hamburger = document.getElementById('hamburger');
-  const sidebar = document.getElementById('sidebar');
-  const sidebarClose = document.getElementById('sidebarClose');
-
-  let images = [];
-  let currentIndex = -1;
-  let timer = null;
-
-  function toggleSidebar(forceOpen = null) {
-    const willOpen = forceOpen === null ? !sidebar.classList.contains('open') : forceOpen;
-    sidebar.classList.toggle('open', willOpen);
-    sidebar.setAttribute('aria-hidden', String(!willOpen));
-  }
-
-  hamburger.addEventListener('click', () => toggleSidebar());
-  sidebarClose.addEventListener('click', () => toggleSidebar(false));
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sidebar.classList.contains('open')) toggleSidebar(false);
-  });
-
-  // --- helpers ---
-  function preload(url) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(url);
-      img.onerror = reject;
-      img.src = url;
-    });
-  }
-
-  function formatLocation(item) {
-    if (item.location) return item.location;
-    const parts = [];
-    if (item.place) parts.push(item.place);
-    const cityCountry = [item.city, item.country].filter(Boolean).join(', ');
-    if (cityCountry) parts.push(cityCountry);
-    return parts.join(' • ') || 'Unknown Location';
-  }
-
-  function formatCityCountry(item) {
-    const cc = [item.city, item.country].filter(Boolean).join(', ');
-    if (cc) return cc;
-    return item.location || 'Unknown Location';
-  }
-
-  function formatExifDate(d) {
-    if (!d || typeof d !== 'string') return 'Unknown Date';
-    const m = d.match(/^(\d{4})[:\-](\d{2})[:\-](\d{2})[ T](\d{2}):(\d{2})/);
-    if (!m) return d;
-    const [, Y, M, D, h, m2] = m;
-    return `${Y}/${M}/${D} ${h}:${m2}`;
-  }
-
-  function showMeta(item) {
-    const cityCountry = formatCityCountry(item);
-    const dateStr = formatExifDate(item.date);
-    const camera = item.camera || 'Unknown Camera';
-
-    metadata.innerHTML = `
-      <div class="meta-line"><i class="fa-solid fa-location-dot"></i> ${cityCountry}</div>
-      <div class="meta-line"><i class="fa-regular fa-calendar-days"></i> ${dateStr}</div>
-      <div class="meta-line"><i class="fa-solid fa-camera"></i> ${camera}</div>
-    `;
-  }
-
-  function resetTransformInstant(el) {
-    el.style.transition = 'transform 0s';
-    el.style.transform = 'scale(1)';
-    void el.offsetHeight;
-  }
-
-  // Fisher–Yates shuffle
-  function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-  }
-
-  // Shuffle images, but avoid immediate repeat across cycles
-  function reshuffleWithoutImmediateRepeat() {
-    if (!images.length) return;
-    const lastItem = currentIndex >= 0 ? images[currentIndex] : null;
-
-    shuffleArray(images);
-
-    // If the first item after shuffle equals the last shown, swap it with another
-    if (lastItem && images.length > 1 && images[0] === lastItem) {
-      const swapIdx = Math.floor(Math.random() * (images.length - 1)) + 1; // pick 1..n-1
-      [images[0], images[swapIdx]] = [images[swapIdx], images[0]];
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bernardo Campos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --text: #1f2933;
+      --muted: #65717d;
+      --line: #d9ddd6;
+      --accent: #2f6f63;
+      --card: #ffffff;
     }
 
-    // after reshuffle, we'll start from index -1 so the next will be 0
-    currentIndex = -1;
-  }
-
-  async function cycleOnce() {
-    if (!images.length) return;
-
-    // advance sequentially
-    let nextIndex = currentIndex + 1;
-
-    // if we've reached the end, reshuffle and start again
-    if (nextIndex >= images.length) {
-      reshuffleWithoutImmediateRepeat();
-      nextIndex = 0;
+    body.dark {
+      --bg: #111816;
+      --text: #eef4ef;
+      --muted: #aab8b0;
+      --line: #2b3a35;
+      --accent: #8fd8c4;
+      --card: #18231f;
     }
 
-    const item = images[nextIndex];
-    const url = "photos/" + item.url;
-
-    try {
-      await preload(url);
-    } catch (e) {
-      console.warn('Failed to preload image:', url, e);
-      // skip this one and try the next on the next tick
-      currentIndex = nextIndex;
-      return;
+    * {
+      box-sizing: border-box;
     }
 
-    // Prepare the fade-in layer
-    nextBg.style.backgroundImage = `url("${url}")`;
-    nextBg.style.opacity = '1';
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
 
-    // Update metadata immediately so it appears with the fade-in
-    showMeta(item);
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
-    // After fade, commit swap and zoom
-    setTimeout(() => {
-      bg.style.backgroundImage = nextBg.style.backgroundImage;
-      resetTransformInstant(bg);
-      nextBg.style.opacity = '0';
+    a:hover {
+      text-decoration: underline;
+    }
 
-      bg.style.transition = `transform ${ZOOM_DURATION_MS}ms ease`;
-      bg.style.transform = `scale(${ZOOM_SCALE})`;
+    .page {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0;
+    }
 
-      currentIndex = nextIndex;
-    }, FADE_DURATION_MS);
-  }
+    header {
+      display: grid;
+      gap: 18px;
+      padding-bottom: 42px;
+      border-bottom: 1px solid var(--line);
+    }
 
-  async function startSlideshow() {
-    try {
-      const res = await fetch(JSON_URL, { cache: 'no-store' });
-      images = await res.json();
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
-      if (!Array.isArray(images) || images.length === 0) {
-        console.error('images.json is empty or not an array.');
-        return;
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 8vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 150px;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .profile-pic {
+      width: 150px;
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--card);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+      overflow: hidden;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .intro {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 22px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    .location {
+      width: fit-content;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 42px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .card p,
+    .item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 18px;
+      padding: 18px 0;
+    }
+
+    .item + .item {
+      border-top: 1px solid var(--line);
+    }
+
+    .date {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .item h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 20;
+      width: 44px;
+      min-height: 44px;
+      padding: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .theme-toggle i {
+      font-size: 1rem;
+    }
+
+    .icon-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    footer {
+      padding-top: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 36px 0;
       }
 
-      // initial shuffle, then walk sequentially
-      reshuffleWithoutImmediateRepeat();
+      .grid,
+      .item,
+      .hero {
+        grid-template-columns: 1fr;
+      }
 
-      // Kick off first cycle immediately
-      await cycleOnce();
+      .profile-pic {
+        width: 120px;
+        justify-self: start;
+      }
 
-      // Continue cycles
-      timer = setInterval(cycleOnce, CYCLE_MS);
-    } catch (err) {
-      console.error('Failed to load images.json', err);
+      .item {
+        gap: 6px;
+      }
     }
-  }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="hero">
+        <div>
+          <div class="eyebrow">PhD Candidate · R&amp;D Engineer · Intelligent Systems</div>
+          <h1>Bernardo Campos</h1>
+        </div>
+        <div class="profile-pic" aria-label="Profile picture placeholder">
+          <img src="images/beno.jpg" alt="Bernardo Campos" />
+        </div>
+      </div>
+      <p class="intro">
+        I work at the intersection of artificial intelligence, optical sensing, electronics, and photobiology. My research focuses on building intelligent control systems that use light-derived signals to optimise biological performance in real time.
+      </p>
+      <div class="location icon-label" aria-label="Location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Orange, NSW, Australia</div>
+      <button class="button theme-toggle" type="button" id="themeToggle" aria-label="Switch to dark mode"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+      <nav aria-label="Main navigation">
+        <a href="#research">Research</a>
+        <a href="#services">Freelance &amp; Contract Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-  // Start!
-  startSlideshow();
-</script>
+    <section id="research">
+      <h2 class="section-title">Research Focus</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Biofeedback Control</h3>
+          <p>Using fluorescence and optical measurements as real-time indicators of culture performance and stress.</p>
+        </article>
+        <article class="card">
+          <h3>Low-Cost Sensors</h3>
+          <p>Designing custom electronics and optical systems for continuous biological monitoring.</p>
+        </article>
+        <article class="card">
+          <h3>Machine Learning</h3>
+          <p>Applying data-driven models for growth forecasting, optimisation, and anomaly detection.</p>
+        </article>
+        <article class="card">
+          <h3>Photobioreactors</h3>
+          <p>Supporting scalable microalgae cultivation through intelligent sensing and environmental control.</p>
+        </article>
+      </div>
+    </section>
 
+    <section id="services">
+      <h2 class="section-title">Freelance &amp; Contract Work</h2>
+      <p class="intro">
+        Alongside my research and engineering work, I operate as a freelancer, supporting organisations with applied R&amp;D, sensing systems, custom electronics and general technical needs.
+      </p>
+      <div class="grid" style="margin-top: 22px;">
+        <article class="card">
+          <h3>Customers &amp; collaborators</h3>
+          <p>NSW Department of Education, University of Technology Sydney, PSI (Photon Systems Instruments), Algenie.</p>
+        </article>
+        <article class="card">
+          <h3>Capabilities</h3>
+          <p>Optical sensing, embedded systems, data acquisition, IoT, machine learning workflows, and research instrumentation.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="intro">Interested in my work? Get in touch.</p>
+      <div class="contact" style="margin-top: 18px;">
+        <a class="button icon-label" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#99;&#97;&#109;&#112;&#111;&#115;&#100;&#105;&#111;&#99;&#97;&#114;&#101;&#116;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</a>
+        <a class="button icon-label" href="https://scholar.google.com/citations?user=mh08tBsAAAAJ&hl=en"><i class="fa-brands fa-google-scholar" aria-hidden="true"></i> Google Scholar</a>
+        <a class="button icon-label" href="https://orcid.org/0000-0001-8800-8864"><i class="fa-brands fa-orcid" aria-hidden="true"></i> ORCID</a>
+        <a class="button icon-label" href="https://github.com/benocd"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+        <a class="button icon-label" href="https://www.linkedin.com/in/bernardo-campos-diocaretz-7662b378"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i> LinkedIn</a>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 beno.cl - Bernardo Campos.
+    </footer>
+  </main>
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    function updateThemeButton(isDark) {
+      themeToggle.innerHTML = isDark
+        ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
+        : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeToggle.setAttribute('title', isDark ? 'Light mode' : 'Dark mode');
+    }
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    updateThemeButton(document.body.classList.contains('dark'));
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      updateThemeButton(isDark);
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
 </body>
-
 </html>
